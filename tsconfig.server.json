@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "lib": [
+      "es2019"
+    ],
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "noEmit": true,
+    "removeComments": true,
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    // "noImplicitAny": true,
+    // "sourceMap": true,
+  },
+  "include": [
+    "./src/server/index.ts"
+  ]
+}
