@@ -10,6 +10,7 @@
     ],
     "rootDir": "./src",
     "outDir": "./dist",
+    "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
@@ -23,8 +24,7 @@
     "esModuleInterop": true,
     "downlevelIteration": true,
     "removeComments": true,
-    "allowJs": false,
-    "experimentalDecorators": true,
+    "experimentalDecorators": true
   },
   "include": [
     "next-env.d.ts",

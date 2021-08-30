@@ -1,5 +1,5 @@
 import Room from './Room';
-import { io } from '../server';
+import { io } from '.';
 
 class App {
     rooms: Room[] = [];

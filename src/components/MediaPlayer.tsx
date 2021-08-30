@@ -5,9 +5,6 @@ interface TimelineProps {
     width: number
 }
 
-// display: flex;
-// flex-direction: column;
-// justify-content: space-between;
 const Wrapper = styled.div`
     padding: 10px;
     padding-bottom: 20px;
@@ -146,8 +143,6 @@ const Player: React.FC<MediaPlayerProps> = ({ audio, isPlaying, playTime, setPla
     const [duration, setDuration] = useState(0);
     const audioRef = useRef(null);
 
-    const base_url = 'http://localhost:3000';
-
 
     useEffect(() => {
         // if there is 500ms diff, then use the server time
@@ -161,7 +156,6 @@ const Player: React.FC<MediaPlayerProps> = ({ audio, isPlaying, playTime, setPla
             timer.start(diff * 1000, startingTime);
         }
 
-        console.log('playtime', playTime);
         if (!timer.isSubscribed) {
             timer.subscribe(setCurrentTime, setPlaying, setPlayTime);
         }
@@ -206,7 +200,7 @@ const Player: React.FC<MediaPlayerProps> = ({ audio, isPlaying, playTime, setPla
         <Wrapper>
             <AudioWrapper>
                 <audio style={{ visibility: 'hidden' }} id='audio' controls ref={audioRef}>
-                    <source src={`${base_url}/media/${audio}`} type="audio/mpeg" />
+                    <source src={`/media/${audio}`} type="audio/mpeg" />
                     Your browser does not support the audio element.
                 </audio>
             </AudioWrapper>

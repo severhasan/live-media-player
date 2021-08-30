@@ -2,15 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Server } from 'socket.io';
 import LivePlayer from './LivePlayer';
 
-// function registerLastActivity(target: Room, key: string | symbol, descriptor: PropertyDescriptor) {
-//     const fn = descriptor.value;
-
-//     descriptor.value = (...args: any[]) => {
-//         target.lastActivity = Date.now();
-//         fn(...args);
-//     };
-//     return descriptor;
-// };
 
 interface EventPayload {
     event: RoomEventType,

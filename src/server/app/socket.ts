@@ -1,10 +1,7 @@
 import Room from './Room';
 import LivePlayer from './LivePlayer';
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
 
-interface CustomSocket extends Socket {
-    room: Room
-}
 
 export default function (socket: CustomSocket, io: Server): void {
 

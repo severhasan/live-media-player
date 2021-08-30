@@ -94,7 +94,6 @@ const Page: React.FC = () => {
                     setPlayTime(data.playTime);
                     return setPlaying(false);
                 case 'replay':
-                    console.log('replaying');
                     setPlaying(false);
                     setPlayTime(0);
                     return setPlaying(true);
@@ -104,7 +103,6 @@ const Page: React.FC = () => {
                     return setAudio(data.audio);
                 case 'rewind':
                 case 'fastforward':
-                    console.log('playtimes:', playTime, data.playTime);
                     setPlayTime(data.playTime);
             }
         });
