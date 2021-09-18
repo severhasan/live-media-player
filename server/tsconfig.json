@@ -1,12 +1,11 @@
 {
-  // "extends": "./tsconfig.json", // on for production, off for developent
   "compilerOptions": {
     "lib": [
       "es2019"
     ],
     "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
+    "outDir": "./../build",
+    "rootDir": "./../",
     "noEmit": false,
     "removeComments": true,
     "esModuleInterop": true,
@@ -14,10 +13,8 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "experimentalDecorators": true
-    // "noImplicitAny": true,
-    // "sourceMap": true,
   },
   "include": [
-    "./src/server/index.ts"
+    "./server.ts"
   ]
 }

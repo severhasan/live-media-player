@@ -200,7 +200,7 @@ const Player: React.FC<MediaPlayerProps> = ({ audio, isPlaying, playTime, setPla
         <Wrapper>
             <AudioWrapper>
                 <audio style={{ visibility: 'hidden' }} id='audio' controls ref={audioRef}>
-                    <source src={`/media/${audio}`} type="audio/mpeg" />
+                    <source src={audio ? `/media/${audio}` : null} type="audio/mpeg" />
                     Your browser does not support the audio element.
                 </audio>
             </AudioWrapper>

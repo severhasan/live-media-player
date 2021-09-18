@@ -10,7 +10,7 @@ router.get('/hello', (req, res) => {
 });
 
 router.get('/media-list', (req, res) => {
-    const files = fs.readdirSync(path.join(__dirname, '../../../public/media'));
+    const files = fs.readdirSync(path.join(__dirname, '../public/media'));
     res.json({ files });
 });
 

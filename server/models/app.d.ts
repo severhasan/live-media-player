@@ -13,8 +13,6 @@ interface User {
     role: 'creator' | 'attendee'
 }
 
-type RoomEventType = 'play' | 'pause' | 'replay' | 'set-audio' | 'rewind' | 'fastforward';
-
 interface CustomSocket extends SocketModule.OriginalSocket {
     room: Room
 }
