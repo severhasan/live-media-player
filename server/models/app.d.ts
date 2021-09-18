@@ -16,3 +16,17 @@ interface User {
 interface CustomSocket extends SocketModule.OriginalSocket {
     room: Room
 }
+
+interface AppConfig {
+    DATABASE: {
+        URI: string,
+        OPTIONS: {
+            useNewUrlParser: boolean,
+            useUnifiedTopology: boolean,
+            useCreateIndex: boolean,
+        }
+    }
+    JWT_SECRET: string,
+    PORT: number,
+    dev: boolean
+}

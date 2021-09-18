@@ -1,14 +1,13 @@
 import Room from './Room';
-import { io } from '../app';
+import { Server } from 'socket.io';
 
 class App {
-    rooms: Room[] = [];
-    startTime: Date;
-    io: typeof io;
+    private rooms: Room[] = [];
+    private startTime: Date;
+    private io: Server;
 
     constructor() {
         this.startTime = new Date();
-        this.io = io;
     }
 
     addRoom(room: Room) {
@@ -31,7 +30,7 @@ class App {
     // }
 
     removeRoom(roomId: string) {
-        const roomIndex = this.rooms.findIndex(room => room.id === roomId);
+        const roomIndex = this.rooms.findIndex((room) => room.id === roomId);
         if (roomIndex > -1) {
             this.rooms.splice(roomIndex, 1);
         }
@@ -43,15 +42,19 @@ class App {
     }
 
     getRoom(roomId: string) {
-        return this.rooms.find(r => r.id === roomId);
+        return this.rooms.find((r) => r.id === roomId);
     }
     getRooms() {
-        return this.rooms.map(room => ({
+        return this.rooms.map((room) => ({
             id: room.id,
             audio: room.audio,
             name: room.name,
-            users: room.users.length
+            users: room.users.length,
         }));
+    }
+
+    setIo(io: Server) {
+        this.io = io;
     }
 }
 

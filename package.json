@@ -2,20 +2,20 @@
     "name": "live-media",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "app.js",
     "scripts": {
         "build:server": "tsc --project server/tsconfig.json",
         "build:next": "next build ./client",
         "build": "npm run build:next && npm run build:server",
         "devnext": "next dev ./client",
         "server": "ts-node --project server/tsconfig.json server/server.ts",
-        "start": "node build/server.js",
+        "start": "node build/server/bin/start.js",
         "type-check": "tsc",
         "tsc": "tsc",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
-    "author": "",
+    "author": "Hasan Sever",
     "license": "ISC",
     "dependencies": {
         "axios": "^0.21.1",

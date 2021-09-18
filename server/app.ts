@@ -1,12 +1,29 @@
-import express from 'express';
-import http from 'http';
-import socketio from 'socket.io';
+import express, { Request, Response, NextFunction, Express } from 'express';
+import controllers from './controllers';
+import path from 'path';
 
-const app = express();
+type HandleCallback = (req: Request, res: Response) => Promise<void>;
 
-// connect socket io
-const server = http.createServer(app);
-const io = new socketio.Server(server);
+// helpers
+function ignoreFavicon(req: Request, res: Response, next: NextFunction) {
+    if (req.originalUrl.includes('favicon.ico')) {
+        return res.status(204).end();
+    }
+    return next();
+}
 
+export default (handle: HandleCallback): Express => {
+    const app = express();
 
-export { app, server, io };
+    // configure the server
+    app.use(ignoreFavicon);
+    app.use(express.json());
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use('/', controllers);
+
+    app.all('*', (req, res) => {
+        return handle(req, res);
+    });
+
+    return app;
+};
