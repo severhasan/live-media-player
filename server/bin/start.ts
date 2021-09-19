@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path='../../models/common.d.ts' />
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path='./../models/app.d.ts' />
+/// <reference path='../types/app.d.ts' />
 
 import socketHandler from '../lib/socket';
 import config from '../config';
@@ -18,7 +18,7 @@ const nextApp = next({
     dir: path.join(__dirname, '../../client'),
 });
 const handle = nextApp.getRequestHandler();
-const app = createApp(handle);
+const app = createApp(config, handle);
 
 // create server and initiate socket.io
 const server = http.createServer(app);
