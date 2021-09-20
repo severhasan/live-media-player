@@ -24,7 +24,7 @@ export default (config: AppConfig, handle: HandleCallback): Express => {
     app.use(express.static(path.join(__dirname, 'public')));
     app.use('/', controllers);
 
-    app.use(jwt({ secret: config.JWT_SECRET, algorithms: ['HS256'] }));
+    // app.use(jwt({ secret: config.JWT_SECRET, algorithms: ['HS256'] }));
 
     app.all('*', (req, res) => {
         return handle(req, res);
