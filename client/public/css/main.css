@@ -2,6 +2,7 @@
 
 html,
 body {
+    background-color: #263242;
     background-color: #22272e;
     padding: 0;
     margin: 0;
@@ -16,8 +17,11 @@ p {
     margin: 0;
     padding: 0;
 }
-#live-player-app {
+.container {
     max-width: 1140px;
+    margin: 0 auto;
+}
+#live-player-app {
     border: 1px solid white;
     border-radius: 6px;
     margin: 40px auto 0 auto;

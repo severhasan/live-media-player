@@ -8,7 +8,7 @@ import config from '../config';
 import createApp from '../app';
 import http from 'http';
 import livePlayer from '../lib/LivePlayer';
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import next from 'next';
 import path from 'path';
 import socketio from 'socket.io';
@@ -29,14 +29,14 @@ livePlayer.setIo(io);
 io.on('connection', (socket) => socketHandler(socket as CustomSocket, io));
 
 // connect Database
-// mongoose
-//     .connect(config.DATABASE.URI, config.DATABASE.OPTIONS)
-//     .then(() => {
-//         console.info('Connected to MongoDB');
-//     })
-//     .catch((error) => {
-//         console.error(error);
-//     });
+mongoose
+    .connect(config.DB_URI)
+    .then(() => {
+        console.info('Connected to MongoDB');
+    })
+    .catch((error) => {
+        console.error(error);
+    });
 
 nextApp
     .prepare()

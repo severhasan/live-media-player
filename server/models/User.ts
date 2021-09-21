@@ -1,13 +1,16 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
+import config from '../config';
 
 // helpers
 async function comparePassword(candidatePassword: string) {
     return bcrypt.compare(candidatePassword, this.password);
 }
 async function generateHash(password: string) {
-    return bcrypt.hash(password, 12);
+    const salt = await bcrypt.genSalt(config.SALT);
+    return bcrypt.hash(password, salt);
+    // return bcrypt.hash(password, 12);
 }
 
 const userSchema = new mongoose.Schema(

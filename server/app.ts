@@ -1,4 +1,6 @@
-import controllers from './controllers';
+import indexRoutes from './routes';
+import authRoutes from './routes/auth';
+import cookieParser from 'cookie-parser';
 import express, { Request, Response, NextFunction, Express } from 'express';
 import helmet from 'helmet';
 import path from 'path';
@@ -19,12 +21,14 @@ export default (config: AppConfig, handle: HandleCallback): Express => {
 
     // configure the server
     app.use(helmet());
+    app.use(cookieParser());
     app.use(ignoreFavicon);
     app.use(express.json());
     app.use(express.static(path.join(__dirname, 'public')));
-    app.use('/', controllers);
+    app.use('/', indexRoutes);
+    app.use('/', authRoutes);
 
-    // app.use(jwt({ secret: config.JWT_SECRET, algorithms: ['HS256'] }));
+    app.use(jwt({ algorithms: ['HS256'], credentialsRequired: false, secret: config.JWT_SECRET }));
 
     app.all('*', (req, res) => {
         return handle(req, res);
