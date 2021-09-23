@@ -6,6 +6,11 @@ import helmet from 'helmet';
 import path from 'path';
 import jwt from 'express-jwt';
 
+const securedMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user) return res.sendStatus(400);
+    next();
+};
+
 type HandleCallback = (req: Request, res: Response) => Promise<void>;
 
 // helpers
@@ -25,10 +30,18 @@ export default (config: AppConfig, handle: HandleCallback): Express => {
     app.use(ignoreFavicon);
     app.use(express.json());
     app.use(express.static(path.join(__dirname, 'public')));
-    app.use('/', indexRoutes);
-    app.use('/', authRoutes);
 
-    app.use(jwt({ algorithms: ['HS256'], credentialsRequired: false, secret: config.JWT_SECRET }));
+    app.use(
+        jwt({
+            algorithms: ['HS256'],
+            credentialsRequired: false,
+            secret: config.JWT_SECRET,
+            getToken: (req) => req.cookies.token,
+        })
+    );
+    app.use('/', indexRoutes);
+    app.use('/auth', authRoutes);
+    app.use('/secured', securedMiddleware);
 
     app.all('*', (req, res) => {
         return handle(req, res);

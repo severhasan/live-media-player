@@ -1,19 +1,24 @@
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
-import mongoose from 'mongoose';
 import config from '../config';
+import mongoose, { Schema, Document, Model } from 'mongoose';
 
-// helpers
-async function comparePassword(candidatePassword: string) {
-    return bcrypt.compare(candidatePassword, this.password);
-}
-async function generateHash(password: string) {
-    const salt = await bcrypt.genSalt(config.SALT);
-    return bcrypt.hash(password, salt);
-    // return bcrypt.hash(password, 12);
+interface IUser {
+    email: string;
+    password: string;
+    verified: boolean;
+    verificationToken: string;
 }
 
-const userSchema = new mongoose.Schema(
+export interface IUserDocument extends IUser, Document {
+    comparePassword: (password: string) => Promise<boolean>;
+}
+
+export interface IUserModel extends Model<IUserDocument> {
+    findByEmail: (email: string) => Promise<IUserDocument>;
+}
+
+const UserSchema: Schema<IUserDocument> = new Schema(
     {
         email: {
             type: String,
@@ -45,8 +50,11 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-userSchema.methods.comparePassword = comparePassword;
-userSchema.pre('save', function preSave(next) {
+async function generateHash(password: string) {
+    const salt = await bcrypt.genSalt(config.SALT);
+    return bcrypt.hash(password, salt);
+}
+UserSchema.pre('save', function preSave(next) {
     // this = user document
     if (this.isModified('password')) {
         return generateHash(this.password)
@@ -61,4 +69,13 @@ userSchema.pre('save', function preSave(next) {
     return next();
 });
 
-export default mongoose.model('User', userSchema);
+UserSchema.methods.comparePassword = async function (candidatePassword: string) {
+    return bcrypt.compare(candidatePassword, this.password);
+};
+
+UserSchema.statics.findByEmail = function (email: string) {
+    return this.findOne({ email });
+};
+
+const User = mongoose.model<IUserDocument, IUserModel>('User', UserSchema);
+export default User;

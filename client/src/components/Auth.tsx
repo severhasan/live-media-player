@@ -93,7 +93,17 @@ const Auth: React.FC<AuthProps> = ({ type }) => {
     };
     const required = 'This field is required';
 
-    const signin = (data) => console.log(data);
+    const signin = async (data) => {
+        console.log('data to send', data);
+        axios
+            .post('http://localhost:3000/signin', data)
+            .then((res) => {
+                console.log('signedin');
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+    };
     const signup = async (data) => {
         console.log('data to send', data);
         axios
@@ -107,8 +117,13 @@ const Auth: React.FC<AuthProps> = ({ type }) => {
             });
     };
 
+    const testAuthRoute = () => {
+        axios.post('http://localhost:3000/test', {});
+    };
+
     return (
         <Wrapper>
+            <button onClick={testAuthRoute}>Test auth route</button>
             <Title> {type === 'signin' ? 'Sign in' : 'Create Account'} </Title>
             <Form onSubmit={handleSubmit(type === 'signin' ? signin : signup)}>
                 <label>Email</label>
